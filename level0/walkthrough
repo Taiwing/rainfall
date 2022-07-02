@@ -1,0 +1,6 @@
+./level0 423
+$ cat /home/user/level1/.pass
+
+This is because the argument passed is compared to a constant 0x1a7. If equal we
+have a shell with level1's permissions since the binary is setuid and setresuid
+and gid are used.
