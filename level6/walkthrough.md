@@ -1,4 +1,4 @@
-## (level6)
+## Heap overflow, 2 mallocs in a row (level6)
 
 This level's [binary](level6/source.c) requires an argument, otherwise it
 segfaults. Then, upon this argument treatment it prints "Nope" or it segfaults
