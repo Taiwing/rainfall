@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-// Global variable set to NULL at first
+// Global variable (not sure about that) set to NULL at first
 char	*c;
 
 void	m(int param_1, int param_2, int param_3, int param_4, int param_5)
