@@ -36,6 +36,5 @@ int	main(int argc, char **argv)
 	a = new N(5);
 	b = new N(6);
 	a->setAnnotation(argv[1]);
-	((void (*)(void))b)();
-	return (0);
+	return (b->operator+(a));
 }
