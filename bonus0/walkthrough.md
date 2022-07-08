@@ -21,7 +21,7 @@ After some gdb analysis, we can see the state of the stack from _p_:
 * 0xbffffb0c (4 bytes): 0x080485b9 _pp_'s return address <_main_+21>
 # TODO: find out where main's buffer starts and get a picture of what it looks
 # like when it is filled by continuing to step in gdb
-* somewhere here there's _main_'s buffer
+* somewhere here there's _main_'s buffer (start: 0xbffffb26, end: ????)
 * 0xbffffb58 (4 bytes): 0x00000000 *\_\_libc\_start\_main*'s ebp ? (look that up)
 * 0xbffffb5c (4 bytes): 0xb7e454d3 _main_'s return address <*\_\_libc\_start\_main*+243>
 
