@@ -28,7 +28,7 @@ void	pp(char *dest)
 
 int		main(void)
 {
-	char	buffer[54];
+	char	buffer[50];
 
 	pp(buffer);
 	puts(buffer);
