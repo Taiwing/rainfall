@@ -7,7 +7,7 @@ int		language;
 
 void	greetuser(char *user_input)
 {
-	char	greeting[80];
+	char	greeting[72];
 
 	if (language == 1)
 		strcpy(greeting, "Hyvää päivää ");
@@ -22,7 +22,7 @@ void	greetuser(char *user_input)
 int		main(int argc, char **argv)
 {
 	char	*locale;
-	char	buffer[144];
+	char	buffer[156];
 
 	if (argc == 3) {
 		bzero(buffer + 80, 19);
