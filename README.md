@@ -7,20 +7,22 @@ This is a CTF made in 42. The flags, you gotta catch them all.
 	<img src="https://github.com/Taiwing/rainfall/blob/master/resources/rain.jpeg?raw=true" alt="ping-screenshot" style="width: 50%;"/>
 </p>
 
-Each level in the virtual machine contains a binary owned by the next level user
-with the setuid bit on and also a _.pass_ file that contains the flag of the
-current level (which is also, as the name indicates, the password for the next
-level). The goal is to reverse engineer each binary and find a way to get access
-to the password file of the next level. This is generally done by exploiting
-some insecure function calls and unchecked user input.
+Each level in the virtual machine contains an executable binary owned by the
+next level user with the setuid bit on. There is also a _.pass_ file which
+contains the password of the current level (except for the first one which is
+used to connect to the vm).
+The goal is to reverse engineer each binary and find a way to get access to the
+password file of the next level which will be the flag for the current level.
+This is generally done by exploiting some insecure function calls and unchecked
+user input.
 
 ## Setup
 
 ```shell
 # launch the rainfall vm with qemu
 ./vm_lauch.bash
-# connect to it with ssh (pass: level00)
-ssh -p 2222 level00@localhost
+# connect to it with ssh (pass: level0)
+ssh -p 2222 level0@localhost
 ```
 
 > The vm\_launch.bash script takes an optional parameter for the ISO path.
