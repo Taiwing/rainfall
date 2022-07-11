@@ -2,7 +2,7 @@ Basically, this means that instead of executing a function already present in
 the binary, we will inject the code we want to execute directly into the buffer
 and set the return address at the begining of our code inside the buffer itself.
 
-### Step 1: create a shellcode
+## How to create a shellcode
 
 This is a hello world gnu-asm example:
 
@@ -74,5 +74,5 @@ gcc test.c -o test
 ./test # -> Hello world
 ```
 
-> You can find all the mentioned files and script above inside the _level1/_
+> You can find all the mentioned files and script above inside the _shellcode/_
 > directory.
