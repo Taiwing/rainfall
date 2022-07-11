@@ -8,13 +8,13 @@ This is a CTF made in 42. The flags, you gotta catch them all.
 </p>
 
 Each level in the virtual machine contains an executable binary owned by the
-next level user with the setuid bit on. There is also a _.pass_ file which
-contains the password of the current level (except for the first one which is
-used to connect to the vm).
-The goal is to reverse engineer each binary and find a way to get access to the
-password file of the next level which will be the flag for the current level.
-This is generally done by exploiting some insecure function calls and unchecked
-user input.
+next level user with the [setuid bit](https://en.wikipedia.org/wiki/Setuid) on.
+There is also a _.pass_ file which contains the password of the current level
+(except for the first one which is used to connect to the vm). The goal is to
+reverse engineer each binary and find a way to get access to the password file
+of the next level which will be the flag for the current level. This is
+generally done by exploiting some insecure function calls and unchecked user
+input.
 
 ## Setup
 
