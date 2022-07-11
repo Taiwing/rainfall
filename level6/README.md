@@ -1,8 +1,8 @@
 ## Heap overflow, 2 mallocs in a row (level6)
 
 This level's [binary](source.c) requires an argument, otherwise it segfaults.
-Then, upon this argument treatment it prints "Nope" or it segfaults again if the
-argument is too long.
+Then, upon this argument's processing it prints "Nope" or it segfaults again if
+the argument is too long.
 
 This binary makes two malloc calls in a row. It first allocates 64 bytes and
 then 4 bytes. The first allocated pointer is used as the destination buffer on

@@ -104,7 +104,7 @@ simirlarly but with an empty character buffer and its value set to 6 on the last
 line (at 0x804a0e0).
 
 Also, both _a_ and _b_ start with the same value 0x08048848. It is the first
-word and we can see it again 7 lines down at b's address (0x804a078). If we
+word and we can see it again 7 lines down at _b_'s address (0x804a078). If we
 check it out, we can see that it points to the address of a function:
 
 ```shell
@@ -147,9 +147,9 @@ Segmentation fault (core dumped)
 So now the exploit. Since the operator is loaded through a pointer to a function
 address situated at the start of _b_, what we need to do is overwrite this value
 with a valid address whose value is the address of the system function. _b_'s
-address is not only the where the operator function is located but it is also
-the first argument of the operator function (this is what _this_ is, a pointer
-to the instance of the class calling the method). So it will be the argument for
+address is not only where the operator function is located but it is also the
+first argument of the operator function (this is what _this_ is, a pointer to
+the instance of the class calling the method). So it will be the argument for
 system too. Obviously the raw bytes of the address pointing to system are not a
 valid shell command, so we need to add a separator and end the string with the
 program we want to launch.

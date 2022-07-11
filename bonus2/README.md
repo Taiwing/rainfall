@@ -67,6 +67,6 @@ ARG2=$(python -c 'print "b" * 18 + "\xb7\xe6\xb0\x60"[::-1] + "\xb7\xe5\xeb\xe0"
 
 > The tricky part here was finding the SHELL env variable's address. For this we
 > used a little helper [program](env_finder.c) which we used to get the address
-> it was in function of the number of arguments and of the environment. Event
+> it was in function of the number of arguments and of the environment. Even
 > then, the address was not exact. The result was found by trial and error based
 > on the errors returned by the failing `sh` command.

@@ -15,14 +15,14 @@ blablabla
 However, this time fgets is used to get user input and the buffer length is
 valid so the input itself is protected. Although now it's not puts that is used
 to print back the input but printf, directly on the input buffer. This means
-that we can feed printf format string directly into this binary which allows us
-to perform a
+that we can feed a printf format string directly into this binary which allows
+us to perform a
 [format string attack](https://infosecwriteups.com/exploiting-format-string-vulnerability-97e3d588da1b).
 
 After analysis of the binary through ghidra and gdb, we can see that there is an
 unitialized global variable _m_ (thus living in the .bss part of our program's
-memory). Since it is not explicitely given a value by the user, it will be set
-to 0. This variable is only used once. It is compared to 0x40 (so if it is equal
+memory). Since it is not explicitly given a value by the user, it will be set to
+0\. This variable is only used once. It is compared to 0x40 (so if it is equal
 to 64). If it is indeed equal to this value the binary will give us a shell. So
 the goal here is to find a way to set _m_ to 64 through the printf call.
 
@@ -46,14 +46,13 @@ aaaabbbbccccdddd 0x200 0xb7fd1ac0 0xb7ff37d0 0x61616161
 
 The p conversion prints the input value as a pointer (here a 32bit pointer) in
 hexadecimal. Here the fourth value is "0x61616161" so this means we reached our
-buffer starting with "aaaa" (since 0x61 is the asci code for 'a'). This means
+buffer starting with "aaaa" (since 0x61 is the ascii code for 'a'). This means
 that from the fourth conversion we control which parameter we give to printf.
 All we have to do here is to start our exploit payload with the bytes
 representing the _m_ variable's address and to use the n conversion to write on
 it. The n conversion will not print anything, it will simply write the number of
-bytes printed by printf to the given address. We just need to make the entire
-format print 64 bytes. To do this we just need to adjust the conversions field
-width.
+bytes printed by printf to the given address. We must make the entire format
+print 64 bytes. To do this we just need to adjust the conversions field width.
 
 Here's the magic payload:
 

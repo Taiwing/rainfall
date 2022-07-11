@@ -95,8 +95,8 @@ itself. As shown above, its address is _0x0804853e_, which passes the stack
 test. We just have to insert it before the system address in the payload.
 
 So instead of the p's ret instruction directly poping the system's address and
-loading it into _eip_ (the instruction pointer), it will loop on itself once
-before eventually doing so. However, the overall logic remains the same:
+loading it into eip (the instruction pointer), it will loop on itself once
+before eventually doing so. The overall logic, however, remains the same:
 
 | command string (8) | padding (72) | ret        |system (4)  | exit (4)   | strdup return (4) |
 |--------------------|--------------|------------|------------|------------|-------------------|

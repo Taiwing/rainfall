@@ -9,8 +9,8 @@ into _main_'s local buffer. Finally _n_ must be equal to 0x574f4c46 for
 A simple [memcpy](https://linux.die.net/man/3/memcpy) is used to copy the second
 argument's contents into _main_'s 40 bytes _buffer_. The size parameter passed
 to is is _n_ * 4. So the name of the game here is to find a value for that will
-pass the first test (be less than 10) and that multiplied by 4 will overflow to
-a value big enougth for overwring _n_ itself with the value it is compared
+pass the first test (be less than 10) and that multiplied by 4 will underflow to
+a value big enough for overwring _n_ itself with the value it is compared
 against.
 
 First, skip the first test and find a working payload for the second argument:
@@ -60,7 +60,7 @@ Continuing.
 process 22942 is executing new program: /bin/dash
 ```
 
-Now that we our payload works, let's get the value of n we need with the help
+Now that we our payload works, let's get the value of _n_ we need with the help
 of this little program:
 
 ```C
@@ -81,9 +81,10 @@ int	main(int argc, char **argv)
 ```
 
 It will simply loop on negative values starting with -1 (which way too high by
-the way, since it will not undflow untin at least INT32\_MAX/4, but who cares?)
-and stop when it finds a negative value that multiplied by 4 will overflow to
-44, which is the number of bytes we want to write to change _n_'s value.
+the way, since it will not underflow until at least INT32\_MAX/4, but who
+cares?) and stop when it finds a negative value that multiplied by 4 will
+underflow to 44, which is the number of bytes we want to write to change _n_'s
+value.
 
 ```shell
 # compile the program

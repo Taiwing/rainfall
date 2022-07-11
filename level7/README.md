@@ -1,7 +1,7 @@
 ## GOT some Heap overlow ? (level7)
 
 This level's [binary](source.c) requires two arguments, otherwise it segfaults.
-Then, upon this argument treatment it prints "~~".
+Then, upon this argument's processing it prints "~~".
 
 This time, four mallocs are done in a row, all of 8 bytes. Two of them will be
 used as destinations for strcpy calls. The first one from argv[1] and the second

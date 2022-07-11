@@ -59,7 +59,7 @@ $6 = 0xbffffb10 "some string"
 
 Now we must write some data to the buffer until we overwrite the return address
 value. This is possible because the stack grows 'downwards' from the highest
-memory addresses to the lowest and that the function's arguments and return
+memory addresses to the lowest and that the function's parameters and return
 address are pushed to the stack before its local variables. So we know that the
 local buffer will be situated before the return address in memory. The return
 address on x86 systems is always situated at ebp's value + 4:
@@ -99,8 +99,8 @@ python -c 'print "a" * 76 + "\x44\x84\x04\x08"' | ./level1
 > Note that the return address bytes have been reversed since we're dealing with
 > a little endian system.
 
-The command above will output the fallowing, meaning that we indeed reached and
-exeucted the run() function:
+The command above will output the following, meaning that we indeed reached and
+executed the run() function:
 
 ```
 Good... Wait what?
@@ -108,7 +108,7 @@ Segmentation fault (core dumped)
 ```
 
 However the shell does not wait because stdin has been closed after gets(). To
-remdey this, we need to execute the payload command in a sub shell and to call
+remedy this, we need to execute the payload command in a sub shell and to call
 an other command that will keep the shell pipe open:
 
 ```shell

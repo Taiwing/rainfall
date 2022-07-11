@@ -149,7 +149,7 @@ the precise location of the buffer, so we will set _main_'s return address to
 the address we got from gdb plus 128 bytes or so. This works because the layout
 differences are not really big between the gdb run process and the normal
 version. The read buffer is large enough for that so let's use it. So when the
-binary receives this input _main_'s return address is replace with 0xbfffee60,
+binary receives this input _main_'s return address is replaced with 0xbfffee60,
 which is *somewhere* inside _p_'s buffer, the eip skips every noop instructions
 to finally encounter and execute the shellcode.
 
