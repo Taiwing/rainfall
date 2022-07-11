@@ -9,6 +9,11 @@ level). The goal is to reverse engineer each binary and find a way to get access
 to the password file of the next level. This is generally done by exploiting
 some insecure function calls and unchecked user input.
 
+<br />
+<p align="center">
+	<img src="https://github.com/Taiwing/rainfall/blob/master/resources/rain.jpeg?raw=true" alt="ping-screenshot" style="width: 50%;"/>
+</p>
+
 ## Setup
 
 ```shell
