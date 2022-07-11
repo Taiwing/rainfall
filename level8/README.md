@@ -1,8 +1,8 @@
 ## Overcomplication shmimplificatrition (level8)
 
 Ok so this level does really simple things in a very complicated way. In this
-level's [source](level8/source.c) you'll find the simplified version. For a trip
-to hell just check the assembly with gdb or even the decompiled code with ghidra
+level's [source](source.c) you'll find the simplified version. For a trip to
+hell just check the assembly with gdb or even the decompiled code with ghidra
 (this level's instructions are so convoluted that even ghidra got some things
 wrong here).
 

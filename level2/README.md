@@ -1,7 +1,7 @@
 ## Return of the libc (level2)
 
-As in the last level, this [binary](level2/source.c) uses gets, which allows us
-to rewrite the return address of the function where it is called and to move the
+As in the last level, this [binary](source.c) uses gets, which allows us to
+rewrite the return address of the function where it is called and to move the
 instruction pointer where we want. The main difference here is that there is no
 function calling a shell in the binary, so we will have to do it ourself.
 

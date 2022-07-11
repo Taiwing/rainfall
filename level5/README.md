@@ -1,8 +1,8 @@
 ## Press printf's f for fun and profit episode III (level5)
 
-This level's [binary](level5/source.c) still does the same thing as the last
-ones. It takes user input and prints it back to stdin. The input buffer is also
-directly given to printf, which means we can once again perform a
+This level's [binary](source.c) still does the same thing as the last ones. It
+takes user input and prints it back to stdin. The input buffer is also directly
+given to printf, which means we can once again perform a
 [format string attack](https://infosecwriteups.com/exploiting-format-string-vulnerability-97e3d588da1b).
 However this time there is no _m_ value to be set. All we have in our function
 _n_, after our insecure printf call, is an exit. There is also an other

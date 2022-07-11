@@ -1,13 +1,13 @@
 ## C++ is bad too (level9)
 
-This level's [binary](level9/source.cpp) is written in C++. It contains an _N_
-class which stores a 100-bytes long character buffer and an int. The character
-buffer contents are set with the _setAnnotation_ method. So this binary takes at
-least one argument (or it exits) and creates two instances of the class with
-C++'s "new" keyword. This basically performs an allocation and sets the int
-member of the struct to the given value. There is also two operator functions,
-one for '+' and an other for '-', which simply adds or substracts the int member
-values and returns the result as an int.
+This level's [binary](source.cpp) is written in C++. It contains an _N_ class
+which stores a 100-bytes long character buffer and an int. The character buffer
+contents are set with the _setAnnotation_ method. So this binary takes at least
+one argument (or it exits) and creates two instances of the class with C++'s
+"new" keyword. This basically performs an allocation and sets the int member of
+the struct to the given value. There is also two operator functions, one for '+'
+and an other for '-', which simply adds or substracts the int member values and
+returns the result as an int.
 
 So the 2 N instances, let's call them _a_ and _b_, are initialized with 5 and 6
 respectively. Then the _setAnnotation_ method is called on _a_ and it copies the

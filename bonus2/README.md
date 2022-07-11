@@ -45,7 +45,7 @@ Program received signal SIGSEGV, Segmentation fault.
 address starts at the 18th byte of our second argument and that we have 10 more
 bytes we can overwrite (not counting the null byte added at the end by
 `strcat`). This is where the fun begins. What we're gonna do is a ret2libc like
-in [level2](level2):
+in [level2](../level2):
 
 | padding (18) | system (4) | exit (4)   | SHELL's address |
 |--------------|------------|------------|-----------------|

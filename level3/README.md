@@ -1,7 +1,7 @@
 ## Press printf's f for fun and profit (level3)
 
-This level's [binary](level3/source.c) is fairly similar to the last one. It
-takes user input and prints it back to stdin:
+This level's [binary](source.c) is fairly similar to the last one. It takes user
+input and prints it back to stdin:
 
 ```shell
 # run the binary

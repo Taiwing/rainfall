@@ -1,11 +1,12 @@
 ## Press printf's f for fun and profit episode II (level4)
 
-This level's [binary](level4/source.c) is once again fairly similar to the last
-one. It takes user input and prints it back to stdin. Here the input buffer is
-also directly given to printf, which means we can perform an other
-[format string attack](https://infosecwriteups.com/exploiting-format-string-vulnerability-97e3d588da1b). We also still have the same _m_ global variable that needs to be set to a
-given value to pass a condition. This time, the binary will directly print the
-next level's password if _m_ equals 0x1025544 (16930116).
+This level's [binary](source.c) is once again fairly similar to the last one. It
+takes user input and prints it back to stdin. Here the input buffer is also
+directly given to printf, which means we can perform an other
+[format string attack](https://infosecwriteups.com/exploiting-format-string-vulnerability-97e3d588da1b).
+We also still have the same _m_ global variable that needs to be set to a given
+value to pass a condition. This time, the binary will directly print the next
+level's password if _m_ equals 0x1025544 (16930116).
 
 So first, let's get _m_'s address:
 

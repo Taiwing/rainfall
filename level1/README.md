@@ -1,11 +1,13 @@
 ## Buffer overflow with gets (level1)
 
-This [binary](level1/source.c) uses gets() to fill a buffer from user input.
-Gets is vulnerable since it does not check the buffer size when writing into it.
-There is also a function run() which is not called by main but launches a shell.
+This [binary](source.c) uses [gets](https://linux.die.net/man/3/gets) to fill a
+buffer from user input. gets() is vulnerable since it does not check the buffer
+size when writing into it (I mean the bug section of its man literally starts
+with "Never use gets()"). There is also a function _run_ which is not called by
+_main_ but launches a shell.
 
 All we have to do is to get the buffer address. Using gdb, I break in main just
-before the gets call and get _eax_'s value:
+before the gets call and get eax's value:
 
 ```shell
 # run gdb on the binary
