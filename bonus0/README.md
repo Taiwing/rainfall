@@ -131,7 +131,7 @@ push    ebx         ; push the command string's address
 mov     ecx, esp    ; set ecx as a pointer to the command string's address (argv)
 push    0xb         ; push 11 (execve interrupt number)
 pop     eax         ; set eax to 11
-int	    0x80        ; call execve
+int     0x80        ; call execve
 ```
 
 This will execute execve with "/bin//sh" as parameter and open us a shell. Now
