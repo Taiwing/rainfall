@@ -134,6 +134,9 @@ pop     eax         ; set eax to 11
 int     0x80        ; call execve
 ```
 
+> This could have been shorter because argv can actually be set to NULL. So we
+> could have skipped building it since the string would have been enough.
+
 This will execute execve with "/bin//sh" as parameter and open us a shell. Now
 the exploit:
 
