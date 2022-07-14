@@ -27,7 +27,6 @@ ssh -p 2222 level0@localhost
 
 > The vm\_launch.bash script takes an optional parameter for the ISO path.
 
-
 ## About this repo
 
 Every level is documented in its own sub-directory which contains at least a
