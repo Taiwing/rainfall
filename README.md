@@ -4,7 +4,7 @@ This is a CTF made in 42. The flags, you gotta catch them all.
 
 <br />
 <p align="center">
-	<img src="https://github.com/Taiwing/rainfall/blob/master/resources/rain.jpeg?raw=true" alt="ping-screenshot" style="width: 50%;"/>
+	<img src="https://github.com/Taiwing/rainfall/blob/master/resources/rain.jpeg?raw=true" alt="city-rain" style="width: 50%;"/>
 </p>
 
 Each level in the virtual machine contains an executable binary owned by the
